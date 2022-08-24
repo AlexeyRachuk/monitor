@@ -1,0 +1,89 @@
+<!doctype html>
+{% load static %}
+<html lang="ru">
+<head>
+    <title>Домены | SSL</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+<body>
+<table class="table table-striped">
+                        <tbody>
+
+                        <tr>
+                            <td><a href="/domain/" class="btn btn-success">Домены</a>
+                            <a href="/ssl/" class="btn btn-danger">SSL</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+<section class="ftco-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-wrap">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Домен</th>
+                            <th>Статус SSL</th>
+                            <th>Дата продления</th>
+                            <!--<th>Статус SSL</th>
+                            <th>Дата продления</th>-->
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        {% for ssl in ssls %}
+                        <tr>
+                            <th scope="row">{{ ssl.title }}</th>
+                            {% if ssl.create_date >= ssl.now_date %}
+                            <td><a href="#" class="btn btn-success">Продлён</a></td>
+                            {% elif ssl.create_date|date:"d" <= ssl.now_date|date:"d" and ssl.create_date|date:"M Y" == ssl.now_date|date:"M Y"  %}
+                            <td><a href="#" class="btn btn-warning">Требуется продление</a></td>
+                            {% else %}
+                            <td><a href="#" class="btn btn-danger">Просрочен</a></td>
+                            {% endif %}
+                            <td>{{ ssl.create_date }}</td>
+                        </tr>
+                        {% endfor %}
+
+                        <!--<tr>
+                          <th scope="row">test.ru</th>
+                          <td><a href="#" class="btn btn-warning">Требуется продление | 14 дней</a></td>
+                          <td>24.08.2022</td>
+                          <td><a href="#" class="btn btn-warning">Требуется продление | 14 дней</a></td>
+                          <td>24.08.2022</td>
+                        </tr>
+
+                        <tr>
+                          <th scope="row">test.ru</th>
+                          <td><a href="#" class="btn btn-danger">Просрочен | 7 дней</a></td>
+                          <td>24.08.2022</td>
+                          <td><a href="#" class="btn btn-danger">Просрочен | 7 дней</a></td>
+                          <td>24.08.2022</td>
+                        </tr>-->
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/popper.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+
+</body>
+</html>
+
